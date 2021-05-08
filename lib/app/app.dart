@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notebook_app/app/pages/home.dart';
+import 'package:notebook_app/app/navigator_main.dart';
 
 class App extends StatelessWidget {
   @override
@@ -10,7 +10,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.greenAccent,
       ),
-      home: Home(),
+      home: BottomNavigatorHome(),
     );
   }
 }
