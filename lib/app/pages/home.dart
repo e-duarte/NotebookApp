@@ -1,14 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:notebook_app/app/pages/feed.dart';
+import 'package:notebook_app/app/widgets/user_icon.dart';
+import 'package:provider/provider.dart';
+import 'package:notebook_app/app/models/manager.dart';
 
-class Home extends StatelessWidget {
-  final title;
+class Home extends StatefulWidget {
+  @override
+  _Home createState() => _Home();
+}
 
-  Home({this.title});
+class _Home extends State<Home> {
+  int _index = 0;
+
+  final List<Widget> screens = [
+    Feed(
+      title: 'Home Page',
+    ),
+    Feed(
+      title: 'Agenda Page',
+    ),
+    Feed(
+      title: 'Usuários Page',
+    ),
+    Feed(
+      title: 'Relatório Page',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(title),
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: MediaQuery.of(context).size.height * 0.07,
+        title: Text(
+          'NotebookApp',
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        ),
+        actions: [
+          Consumer<Manager>(builder: (context, manager, child) {
+            return IconButton(
+              icon: UserIcon(
+                username: manager.name,
+                size: 0.5,
+                fontSize: 16.0,
+              ),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/manager',
+                arguments: {
+                  'username': manager.username,
+                  'role': manager.role,
+                  'name': manager.name,
+                },
+              ),
+            );
+          }),
+        ],
+      ),
+      body: screens[_index],
+      bottomNavigationBar: BottomNavigatorHome(
+        callback: changeIndex,
+      ),
+    );
+  }
+
+  void changeIndex(int index) {
+    setState(() {
+      _index = index;
+    });
+  }
+}
+
+class BottomNavigatorHome extends StatefulWidget {
+  final callback;
+
+  BottomNavigatorHome({this.callback});
+
+  @override
+  _BottomNavigatorHomeState createState() => _BottomNavigatorHomeState();
+}
+
+class _BottomNavigatorHomeState extends State<BottomNavigatorHome> {
+  int _index = 0;
+  final labels = ['Home', 'Agenda', 'Usuários', 'Relatório'];
+
+  final icons = [
+    Icons.home_rounded,
+    Icons.calendar_today,
+    Icons.person_add,
+    Icons.trending_up,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      currentIndex: _index,
+      onTap: (int index) {
+        setState(() {
+          _index = index;
+          widget.callback(index);
+        });
+      },
+      items: List.generate(labels.length, (index) {
+        return BottomNavigationBarItem(
+          icon: Icon(icons[index]),
+          label: labels[index],
+        );
+      }),
     );
   }
 }
