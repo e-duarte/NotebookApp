@@ -12,10 +12,6 @@ class _ManagerPageState extends State<ManagerPage> {
   Widget build(BuildContext context) {
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
 
-    print(arguments['name']);
-    print(arguments['username']);
-    print(arguments['role']);
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: MediaQuery.of(context).size.height * 0.07,
@@ -68,7 +64,12 @@ class _ManagerPageState extends State<ManagerPage> {
                 ),
               );
             }
-            return CardItem();
+            return CardItem(
+              username: arguments['username'],
+              name: arguments['name'],
+              usernameSesion: arguments['username'],
+              user: 'Xablau',
+            );
           },
         ),
       ),
