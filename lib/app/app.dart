@@ -22,7 +22,7 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'NotebookApp',
         theme: ThemeData(
-          primaryColor: Colors.green,
+          primaryColor: Colors.cyan,
         ),
         initialRoute: '/',
         routes: {

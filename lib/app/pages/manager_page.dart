@@ -32,7 +32,7 @@ class _ManagerPageState extends State<ManagerPage> {
                 child: Container(
                   padding:
                       EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-                  height: 150,
+                  height: MediaQuery.of(context).size.height * 0.25,
                   child: Center(
                     child: Column(
                       children: [
@@ -64,6 +64,7 @@ class _ManagerPageState extends State<ManagerPage> {
                 ),
               );
             }
+            // Here is acess the REST API
             return CardItem(
               username: arguments['username'],
               name: arguments['name'],

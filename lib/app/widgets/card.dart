@@ -20,7 +20,8 @@ class _CardItemState extends State<CardItem> {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        height: 50,
+        padding: EdgeInsets.only(left: 8, right: 8),
+        height: MediaQuery.of(context).size.height * 0.12,
         color: Colors.white,
         child: Column(
           children: [

@@ -29,7 +29,8 @@ class _LoginState extends State<Login> {
                 children: [
                   Icon(
                     Icons.calendar_today_rounded,
-                    color: Colors.green,
+                    color: Colors.cyan,
+                    size: 50,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
@@ -44,25 +45,28 @@ class _LoginState extends State<Login> {
                     obscureText: true,
                     onSaved: (password) => _password = password,
                   ),
-                  ElevatedButton(
-                    child: Text('ENTER'),
-                    onPressed: () {
-                      _keyForm.currentState.save();
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      child: Text('ENTER'),
+                      onPressed: () {
+                        _keyForm.currentState.save();
 
-                      Map<String, dynamic> json = {
-                        'username': _username,
-                        'password': _password,
-                        'name': 'Ewerton Duarte',
-                        'role': 'Instrutor',
-                      };
+                        Map<String, dynamic> json = {
+                          'username': _username,
+                          'password': _password,
+                          'name': 'Ewerton Duarte',
+                          'role': 'Instrutor',
+                        };
 
-                      manager.setManager(json);
-                      print(manager.name);
+                        manager.setManager(json);
+                        print(manager.name);
 
-                      Navigator.pushReplacementNamed(context, '/home');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
+                        Navigator.pushReplacementNamed(context, '/home');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.cyan,
+                      ),
                     ),
                   ),
                 ],
