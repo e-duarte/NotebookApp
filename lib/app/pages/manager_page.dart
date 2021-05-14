@@ -19,7 +19,7 @@ class _ManagerPageState extends State<ManagerPage> {
           arguments['name'].split(' ')[0] +
               ' ' +
               arguments['name'].split(' ').last,
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       ),
       body: Container(

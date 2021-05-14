@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notebook_app/app/pages/agenda.dart';
 import 'package:notebook_app/app/pages/feed.dart';
 import 'package:notebook_app/app/widgets/user_icon.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +17,7 @@ class _Home extends State<Home> {
     Feed(
       title: 'Home Page',
     ),
-    Feed(
-      title: 'Agenda Page',
-    ),
+    Agenda(),
     Feed(
       title: 'Usuários Page',
     ),
