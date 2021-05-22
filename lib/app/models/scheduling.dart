@@ -13,6 +13,7 @@ class Scheduling {
     this.isAllDay,
     this.isRepeate,
     this.description,
+    this.createdAt,
   });
 
   factory Scheduling.fromJson(Map<String, dynamic> json) {
@@ -27,6 +28,7 @@ class Scheduling {
       background: Color(json['background']),
       isAllDay: json['isAllDay'],
       description: json['description'],
+      createdAt: DateTime.parse(json['createdAt']),
     );
   }
 
@@ -53,6 +55,7 @@ class Scheduling {
   bool isAllDay;
   bool isRepeate;
   String description;
+  DateTime createdAt;
 }
 
 class Schedulings extends ChangeNotifier {

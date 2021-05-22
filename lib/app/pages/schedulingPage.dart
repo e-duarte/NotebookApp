@@ -82,6 +82,7 @@ class _SchedulingStatePage extends State<SchedulingPage> {
 
                   schedulingFuture.then((json) {
                     final scheduling = Scheduling.fromJson(json);
+                    print(scheduling);
                     schedulings.addItem(scheduling);
                     Navigator.pop(context);
                   });

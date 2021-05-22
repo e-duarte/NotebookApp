@@ -14,6 +14,8 @@ class SchedulingService {
       Iterable l = json.decode(response.body);
       List<Scheduling> schedulings =
           List<Scheduling>.from(l.map((model) => Scheduling.fromJson(model)));
+      print('Hello World');
+      print(schedulings.length);
       return schedulings;
     } else if (response.statusCode == 404) {
       throw Exception('No data...');
@@ -29,6 +31,7 @@ class SchedulingService {
         body: msg, headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {
+      print(json.decode(response.body));
       return json.decode(response.body);
     } else if (response.statusCode == 404) {
       throw Exception('No data...');

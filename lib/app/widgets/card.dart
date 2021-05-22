@@ -6,12 +6,14 @@ class CardItem extends StatefulWidget {
   final String managerSession;
   final String managerName;
   final String user;
+  final String duration;
 
   CardItem({
     this.managerName,
     this.manager,
     this.managerSession,
     this.user,
+    this.duration,
   });
 
   @override
@@ -41,7 +43,7 @@ class _CardItemState extends State<CardItem> {
                 ),
                 Text(
                     '${widget.manager == widget.managerSession ? 'Você' : widget.manager} agendou um horário'),
-                // Text('dd/mm/yyyy'),
+                Text(widget.duration),
               ],
             ),
             Text('${widget.user}')

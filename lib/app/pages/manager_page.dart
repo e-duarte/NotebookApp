@@ -48,6 +48,7 @@ class _ManagerPageState extends State<ManagerPage> {
                               managerSession: arguments['manager'],
                               managerName: arguments['managerName'],
                               user: scheduling.user.name,
+                              duration: duration(scheduling.createdAt),
                             )));
                     return ListView.builder(
                       itemCount: schedulingCards.length,
@@ -65,6 +66,9 @@ class _ManagerPageState extends State<ManagerPage> {
 
   String nameAndLastName(managerName) =>
       managerName.split(' ')[0] + ' ' + managerName.split(' ').last;
+
+  String duration(DateTime createAt) =>
+      '${DateTime.now().difference(createAt).inMinutes} min atrás';
 
   Widget profileCard(manager, managerName, managerRole) {
     return Card(

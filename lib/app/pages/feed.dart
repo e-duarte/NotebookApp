@@ -39,6 +39,7 @@ class _FeedState extends State<Feed> {
                                 Provider.of<Manager>(context).username,
                             managerName: scheduling.manager.name,
                             user: scheduling.user.name,
+                            duration: duration(scheduling.createdAt),
                           ))
                       .toList());
                   return ListView.builder(
@@ -53,6 +54,9 @@ class _FeedState extends State<Feed> {
           }),
     );
   }
+
+  String duration(DateTime createAt) =>
+      '${DateTime.now().difference(createAt).inMinutes} min atrás';
 
   Widget welcomeCard() {
     return Card(
