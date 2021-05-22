@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notebook_app/app/pages/agenda.dart';
 import 'package:notebook_app/app/pages/feed.dart';
+import 'package:notebook_app/app/pages/usersPage.dart';
 import 'package:notebook_app/app/widgets/user_icon.dart';
 import 'package:provider/provider.dart';
 import 'package:notebook_app/app/models/manager.dart';
@@ -14,16 +15,10 @@ class _Home extends State<Home> {
   int _index = 0;
 
   final List<Widget> screens = [
-    Feed(
-      title: 'Home Page',
-    ),
+    Feed(),
     Agenda(),
-    Feed(
-      title: 'Usuários Page',
-    ),
-    Feed(
-      title: 'Relatório Page',
-    ),
+    UsersPage(),
+    Feed(),
   ];
 
   @override
@@ -47,9 +42,9 @@ class _Home extends State<Home> {
                 context,
                 '/manager',
                 arguments: {
-                  'username': manager.username,
-                  'role': manager.role,
-                  'name': manager.name,
+                  'manager': manager.username,
+                  'managerRole': manager.role,
+                  'managerName': manager.name,
                 },
               ),
             );

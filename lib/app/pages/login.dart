@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notebook_app/app/models/manager.dart';
+import 'package:notebook_app/app/services/login_service.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
@@ -20,7 +21,7 @@ class _LoginState extends State<Login> {
       return Scaffold(
         body: Center(
           child: Container(
-            padding: EdgeInsets.all(50),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.07),
             // color: Colors.amber,
             child: Form(
               key: _keyForm,
@@ -34,13 +35,13 @@ class _LoginState extends State<Login> {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      hintText: 'Username',
+                      hintText: 'Nome de usuário',
                     ),
                     onSaved: (username) => _username = username,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      hintText: 'Senha',
                     ),
                     obscureText: true,
                     onSaved: (password) => _password = password,
@@ -48,21 +49,32 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      child: Text('ENTER'),
+                      child: Text('Conectar'),
                       onPressed: () {
                         _keyForm.currentState.save();
+                        print(_password);
 
-                        Map<String, dynamic> json = {
-                          'username': _username,
-                          'password': _password,
-                          'name': 'Ewerton Duarte',
-                          'role': 'Instrutor',
-                        };
+                        // Map<String, dynamic> json = {
+                        //   'id': '987',
+                        //   'username': _username,
+                        //   'password': _password,
+                        //   'name': 'Ewerton Duarte',
+                        //   'role': 'Instrutor',
+                        // };
 
-                        manager.setManager(json);
-                        print(manager.name);
+                        final future =
+                            LoginService().login(_username, _password);
+                        future.then((json) {
+                          if (json != null) {
+                            print(json);
+                            manager.fromJson(json);
+                            print(manager.id);
 
-                        Navigator.pushReplacementNamed(context, '/home');
+                            Navigator.pushReplacementNamed(context, '/home');
+                          } else {
+                            throw Exception('Falha ao carregar dados...');
+                          }
+                        });
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.cyan,

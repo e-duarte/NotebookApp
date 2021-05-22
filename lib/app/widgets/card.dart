@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:notebook_app/app/widgets/user_icon.dart';
 
 class CardItem extends StatefulWidget {
-  String name;
-  String username;
-  String role;
-  String usernameSesion;
-  String user;
+  final String manager;
+  final String managerSession;
+  final String managerName;
+  final String user;
 
-  CardItem(
-      {this.name, this.username, this.role, this.usernameSesion, this.user});
+  CardItem({
+    this.managerName,
+    this.manager,
+    this.managerSession,
+    this.user,
+  });
 
   @override
   _CardItemState createState() => _CardItemState();
@@ -31,14 +34,14 @@ class _CardItemState extends State<CardItem> {
                   width: 30,
                   height: 30,
                   child: UserIcon(
-                    username: widget.name,
+                    username: widget.managerName,
                     size: 0.1,
                     fontSize: 18.0,
                   ),
                 ),
                 Text(
-                    '${widget.username == widget.usernameSesion ? 'Você' : widget.username} agendou um horário'),
-                Text('dd/mm/yyyy'),
+                    '${widget.manager == widget.managerSession ? 'Você' : widget.manager} agendou um horário'),
+                // Text('dd/mm/yyyy'),
               ],
             ),
             Text('${widget.user}')

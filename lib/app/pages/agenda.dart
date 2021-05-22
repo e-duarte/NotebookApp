@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notebook_app/app/models/manager.dart';
+import 'package:notebook_app/app/models/scheduling.dart';
+import 'package:notebook_app/app/services/scheduling_service.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -11,61 +12,63 @@ class Agenda extends StatefulWidget {
 class _AgendaState extends State<Agenda> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Manager>(builder: (context, manager, child) {
+    return Consumer<Schedulings>(builder: (context, schedulings, child) {
+      // events.addAll(schedulings.getSchedulings());
+      // events = events.toSet().toList();
       return Scaffold(
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           mini: true,
           onPressed: () {
-            print('navegando para agendamento');
             Navigator.pushNamed(context, '/scheduling');
           },
           backgroundColor: Colors.cyan,
         ),
         body: Container(
-          child: SfCalendar(
-            view: CalendarView.week,
-            firstDayOfWeek: 1,
-            allowViewNavigation: true,
-            allowedViews: [
-              CalendarView.month,
-              CalendarView.week,
-              CalendarView.day
-            ],
-            monthViewSettings: MonthViewSettings(showAgenda: true),
-            dataSource: MeetingDataSource(_getDataSource()),
-            timeSlotViewSettings: TimeSlotViewSettings(
-                startHour: 8,
-                endHour: 22,
-                nonWorkingDays: <int>[DateTime.saturday, DateTime.sunday]),
+          child: FutureBuilder(
+            future: SchedulingService().all(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                case ConnectionState.waiting:
+                  return Center(child: CircularProgressIndicator());
+                default:
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text("Erro ao carregar..."),
+                    );
+                  } else {
+                    return SfCalendar(
+                      view: CalendarView.week,
+                      firstDayOfWeek: 1,
+                      allowViewNavigation: true,
+                      allowedViews: [
+                        CalendarView.month,
+                        CalendarView.week,
+                        CalendarView.day
+                      ],
+                      monthViewSettings: MonthViewSettings(showAgenda: true),
+                      dataSource: SchedulingDataSource(snapshot.data),
+                      timeSlotViewSettings: TimeSlotViewSettings(
+                          startHour: 8,
+                          endHour: 22,
+                          nonWorkingDays: <int>[
+                            DateTime.saturday,
+                            DateTime.sunday
+                          ]),
+                    );
+                  }
+              }
+            },
           ),
         ),
       );
     });
   }
-
-  List<Meeting> _getDataSource() {
-    final List<Meeting> meetings = <Meeting>[];
-    final DateTime today = DateTime.now();
-    final DateTime startTime =
-        DateTime(today.year, today.month, today.day, 8, 0, 0);
-    final DateTime endTime = startTime.add(const Duration(hours: 3));
-    meetings
-        .add(Meeting('Studant', startTime, endTime, Colors.greenAccent, false));
-    meetings.add(Meeting(
-        'Urban Teacher',
-        startTime,
-        endTime.subtract(const Duration(hours: 2)),
-        Colors.yellowAccent,
-        false));
-    meetings.add(Meeting('Colono-Teachers', startTime,
-        endTime.subtract(const Duration(hours: 2)), Colors.redAccent, true));
-    return meetings;
-  }
 }
 
-class MeetingDataSource extends CalendarDataSource {
-  MeetingDataSource(List<Meeting> source) {
+class SchedulingDataSource extends CalendarDataSource {
+  SchedulingDataSource(List<Scheduling> source) {
     appointments = source;
   }
 
@@ -93,14 +96,4 @@ class MeetingDataSource extends CalendarDataSource {
   bool isAllDay(int index) {
     return appointments[index].isAllDay;
   }
-}
-
-class Meeting {
-  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
-
-  String eventName;
-  DateTime from;
-  DateTime to;
-  Color background;
-  bool isAllDay;
 }
