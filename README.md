@@ -1,6 +1,6 @@
-# notebook_app
+# Notebook App
 
-A new Flutter project.
+notebook app
 
 ## Getting Started
 
