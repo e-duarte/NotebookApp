@@ -3,6 +3,7 @@ import 'package:notebook_app/app/models/scheduling.dart';
 import 'package:notebook_app/app/services/scheduling_service.dart';
 import 'package:notebook_app/app/widgets/card.dart';
 import 'package:notebook_app/app/widgets/user_icon.dart';
+import 'package:notebook_app/helpers/utils.dart';
 
 class ManagerPage extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _ManagerPageState extends State<ManagerPage> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         toolbarHeight: MediaQuery.of(context).size.height * 0.07,
         title: Text(
           nameAndLastName(arguments['managerName']),
@@ -48,7 +50,7 @@ class _ManagerPageState extends State<ManagerPage> {
                               managerSession: arguments['manager'],
                               managerName: arguments['managerName'],
                               user: scheduling.user.name,
-                              duration: duration(scheduling.createdAt),
+                              duration: Utils.duration(scheduling.createdAt),
                             )));
                     return ListView.builder(
                       itemCount: schedulingCards.length,
@@ -66,9 +68,6 @@ class _ManagerPageState extends State<ManagerPage> {
 
   String nameAndLastName(managerName) =>
       managerName.split(' ')[0] + ' ' + managerName.split(' ').last;
-
-  String duration(DateTime createAt) =>
-      '${DateTime.now().difference(createAt).inMinutes} min atrás';
 
   Widget profileCard(manager, managerName, managerRole) {
     return Card(

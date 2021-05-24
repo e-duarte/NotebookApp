@@ -33,6 +33,8 @@ class _CardItemState extends State<CardItem> {
             Row(
               children: [
                 Container(
+                  margin: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.02),
                   width: 30,
                   height: 30,
                   child: UserIcon(
@@ -43,7 +45,11 @@ class _CardItemState extends State<CardItem> {
                 ),
                 Text(
                     '${widget.manager == widget.managerSession ? 'Você' : widget.manager} agendou um horário'),
-                Text(widget.duration),
+                Container(
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.17),
+                  child: Text(widget.duration),
+                ),
               ],
             ),
             Text('${widget.user}')

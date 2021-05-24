@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notebook_app/app/pages/agenda.dart';
+import 'package:notebook_app/app/pages/chart_page.dart';
 import 'package:notebook_app/app/pages/feed.dart';
 import 'package:notebook_app/app/pages/usersPage.dart';
 import 'package:notebook_app/app/widgets/user_icon.dart';
@@ -18,7 +19,7 @@ class _Home extends State<Home> {
     Feed(),
     Agenda(),
     UsersPage(),
-    Feed(),
+    ChartPage(),
   ];
 
   @override

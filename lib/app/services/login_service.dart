@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:notebook_app/helpers/network.dart';
+
 class LoginService {
   final url = '192.168.57.1:3333';
 
@@ -10,7 +12,7 @@ class LoginService {
       'password': password,
     });
 
-    var response = await http.post(Uri.http(url, 'login'),
+    var response = await http.post(Uri.http(Network.api, 'login'),
         body: msg, headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {

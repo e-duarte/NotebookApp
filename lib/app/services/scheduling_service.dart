@@ -2,12 +2,13 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:notebook_app/app/models/scheduling.dart';
+import 'package:notebook_app/helpers/network.dart';
 
 class SchedulingService {
   final url = '192.168.57.1:3333';
 
   Future<List<Scheduling>> all() async {
-    var response = await http.get(Uri.http(url, 'schedulings'),
+    var response = await http.get(Uri.http(Network.api, 'schedulings'),
         headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {
@@ -27,7 +28,7 @@ class SchedulingService {
   Future<Map<String, dynamic>> store(Scheduling scheduling) async {
     final msg = jsonEncode(scheduling.toJson());
 
-    var response = await http.post(Uri.http(url, 'schedulings'),
+    var response = await http.post(Uri.http(Network.api, 'schedulings'),
         body: msg, headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {

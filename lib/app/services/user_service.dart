@@ -2,11 +2,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:notebook_app/app/models/users.dart';
+import 'package:notebook_app/helpers/network.dart';
 
 class UserService {
   final url = '192.168.57.1:3333';
   Future<List<User>> all() async {
-    var response = await http.get(Uri.http(url, 'users'),
+    var response = await http.get(Uri.http(Network.api, 'users'),
         headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {
@@ -24,7 +25,7 @@ class UserService {
   }
 
   Future<User> get(String id) async {
-    var response = await http.get(Uri.http(url, 'users'),
+    var response = await http.get(Uri.http(Network.api, 'users'),
         headers: {'Content-Type': 'application/json', 'id': id});
 
     if (response.statusCode == 200) {
@@ -52,7 +53,7 @@ class StudentService {
       'type': 'student',
     });
 
-    var response = await http.post(Uri.http(url, 'users'),
+    var response = await http.post(Uri.http(Network.api, 'users'),
         body: msg, headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {
@@ -76,7 +77,7 @@ class TeacherService {
       'type': 'teacher',
     });
 
-    var response = await http.post(Uri.http(url, 'users'),
+    var response = await http.post(Uri.http(Network.api, 'users'),
         body: msg, headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {

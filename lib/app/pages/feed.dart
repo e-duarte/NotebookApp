@@ -3,6 +3,7 @@ import 'package:notebook_app/app/models/manager.dart';
 import 'package:notebook_app/app/models/scheduling.dart';
 import 'package:notebook_app/app/services/scheduling_service.dart';
 import 'package:notebook_app/app/widgets/card.dart';
+import 'package:notebook_app/helpers/utils.dart';
 import 'package:provider/provider.dart';
 
 class Feed extends StatefulWidget {
@@ -39,7 +40,7 @@ class _FeedState extends State<Feed> {
                                 Provider.of<Manager>(context).username,
                             managerName: scheduling.manager.name,
                             user: scheduling.user.name,
-                            duration: duration(scheduling.createdAt),
+                            duration: Utils.duration(scheduling.createdAt),
                           ))
                       .toList());
                   return ListView.builder(
@@ -55,8 +56,17 @@ class _FeedState extends State<Feed> {
     );
   }
 
-  String duration(DateTime createAt) =>
-      '${DateTime.now().difference(createAt).inMinutes} min atrás';
+  // String duration(DateTime createAt) {
+  //   final duration = DateTime.now().difference(createAt).inMinutes;
+
+  //   if (duration < 60) {
+  //     return 'há ${DateTime.now().difference(createAt).inMinutes} min';
+  //   } else if (duration >= 60) {
+  //     return 'há ${DateTime.now().difference(createAt).inHours} horas';
+  //   } else {
+  //     return '';
+  //   }
+  // }
 
   Widget welcomeCard() {
     return Card(
